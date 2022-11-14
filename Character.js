@@ -4,13 +4,13 @@ import {getDiceRollArray, getDicePlaceholderHtml, getPercentage} from './utils.j
 function Character(data) {
   Object.assign(this, data)
  
-  this.diceArray = getDicePlaceholderHtml(this.diceCount)
+  this.diceHtml = getDicePlaceholderHtml(this.diceCount) 
 
   this.maxHealth = this.health;
 
-  this.getDiceHtml = function(diceCount) {
+  this.setDiceHtml = function() {
     this.currentDiceScore = getDiceRollArray(this.diceCount)
-    this.diceArray = this.currentDiceScore.map(num => 
+    this.diceHtml = this.currentDiceScore.map(num => 
         `<div class="dice">${num}</div>`).join('')
    
   }
@@ -37,7 +37,7 @@ function Character(data) {
   }
 
   this.getCharacterHtml = function() {
-    const { elementId,name,avatar,health, diceCount, diceArray } = this;
+    const { elementId,name,avatar,health, diceCount, diceHtml } = this;
     const healthBar = this.getHealthBarHtml()
     return `
             <div class="character-card">
@@ -46,7 +46,7 @@ function Character(data) {
                 <div class="health">health: <b> ${health} </b></div>
                 ${healthBar}
                 <div class="dice-container">
-                    ${diceArray}
+                    ${diceHtml}
                 </div>
             </div>`;
   }
